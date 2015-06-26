@@ -1,0 +1,257 @@
+//Intro to mySQL Databases
+
+
+Schema - the structure of a database
+Data - the information held in databases
+Tuple - also called a row or record
+
+Database information is structured like tables, with rows(sometimes called tuples/records).
+
+There are 3 data types in databases:
+String Types(2 types Varchar and text) 
+- Varchar are varying short strings of characters(ex. product names or movie titles)
+- Text are for longer strings like movie or product descriptions
+
+Numeric Types(Integers/Fixed Point(decimal)/Float Point(pi))
+- Integers are any whole number
+- Fixed Point (ex. Decimal) - any number with specific number of decimal points i.e. money
+- Float Point - any number that isn't fixed to a particular precision. This is a good way of storing ratings or numbers that won't be fixed to a particular type.
+
+Date & Time Types
+- Temporal date and time types - sometimes both or one or the other
+
+When creating databases datatypes are not set in stone and can be changed after creation.
+
+
+
+//Creating Tables
+
+
+Syntax for 1 column:
+CREATE TABLE actors (name VARCHAR(50));
+
+CREATE - tells the database to create something
+TABLE - tells the database what to create(a table)
+actors - the name of the table
+(name VARCHAR(50)) - this is one column in the table
+name - name is the header of the column
+VARCHAR - this is the datatype
+(50) - this is the max number of characters
+
+Syntax for 2 columns:
+CREATE TABLE movies(title VARCHAR(200),year INTEGER);
+
+After the comma "year" is the heading for the second column and "INTEGER" is the datatype.
+
+Note: if prexisting table or schema is being written over(not a new schema/table) use IF NOT EXISTS to guard against the script stopping.
+CREATE SCHEMA movies IF NOT EXISTS;
+CREATE DATABASE movies IF NOT EXISTS;
+Note: SCHEMA and DATABASE can be interchanged. Both commands here do the same thing.
+
+
+
+//Inserting Data with the INSERT clause
+
+
+Syntax:
+INSERT INTO movies VALUES("Avatar", 2009);
+
+
+
+//Selecting Data with the SELECT clause
+
+
+SELECT * FROM movies;
+This selects all columns from the desired table.
+SELECT movies.title, movies.year FROM movies;
+This selects specific columns from tables in that specific order.
+
+
+
+//Querying Tables with the WHERE clause
+
+
+SELECT * FROM movies WHERE year = 1999;
+Note: the single equals sign acts as a comparative operator here not an assignment.
+
+SELECT * FROM movies WHERE year = 1990 OR title != "Trolls 2" ;
+Note: all other standard comparative operators act the same. Also goes with OR and AND.
+
+SELECT * FROM movies WHERE year BETWEEN 1998 AND 2000;
+To select a range: use the WHERE keyword, the first range then the AND keyword and then the last range.
+
+SELECT * FROM movies WHERE title LIKE "%godfather%";
+To search using a string: use the LIKE keyword followed by the string.
+The LIKE keyword can take case insensitive string.
+
+Note: here we are using the %(wildcard) operator that acts in different ways depending on the scenario. 
+In this example we are looking for any titles with the string godfather. The wildcard on the front says it doesn't matter what is in front of the desired string and the second wildcard says it doesn't matter what is after the desired string.
+
+
+
+//Ordering the result set with the ORDER clause
+
+
+SELECT * FROM movies ORDER BY year ASC, title ASC;
+Here we are ordering movies by title from earliest to latest then by title alphabetically.
+Note: the sorting priority goes from left to right and is separated by commas. You can order it ASC ascending or DESC descending.
+
+
+
+//Limiting the result set with the LIMIT clause
+
+
+Sometimes you'd only want to retrieve part of an immense database. This can be done with the LIMIT keyword.
+
+SELECT * FROM movies LIMIT 10;
+Brings up only the first 10 movies.
+
+SELECT * FROM movies LIMIT 10 OFFSET 9;
+Note: this uses zero-based indices.
+Brings up movies 10-20.
+Shorthand for this is: SELECT * FROM movies LIMIT 9, 10;
+
+Note: With mySQL the default entries returned are the first 1000 when not specifying a limit unless you are using a programming language or a CLI tool in which case there is no limit as defaulted.
+
+
+
+
+//Dealing with NULL
+
+
+If data is missing or invalid the entry will be NULL.
+
+SELECT * FROM movies WHERE year IS NULL;
+You can look for missing info with the IS keyword.
+
+SELECT * FROM movies WHERE year IS NOT NULL ORDER BY DESC;
+You can filter out missing info using IS NOT NULL.
+
+
+
+//Modifying Schema and Data
+
+
+mySQL contains 2 different types of syntax.
+Data Definition Language (DDL) - Deals with schema(creates/modifies tables and DB)
+Data Manipulation Language (DML) - Deals with CRUD(Creating, Reading, Updating, Deleting)
+
+
+
+//Using INSERT to add to a table
+
+
+Long method:
+INSERT INTO movies (title,year) VALUES ("Avatar",2009),(NULL,"Avatar 2");
+
+Shorthand:
+INSERT INTO movies VALUES ("Avatar",2009),(NULL,"Avatar 2");
+Note: no need to add (title,year) after movies unless changing order of info.
+
+Alt. method("inserting") with SET:
+INSERT INTO movies SET title="Back to the Future", year = 1985;
+
+//Deleting tables with DELETE command;
+
+
+
+//Create Read Update Delete(CRUD)
+
+
+CREATE TABLE movies(title VARCHAR(200),year INTEGER);
+SELECT * FROM movies WHERE year BETWEEN 1998 AND 2000;
+UPDATE movies SET year=2015 WHERE title="Avatar 2";
+DELETE FROM movies WHERE title="Avatar Reloaded" AND year=2016;
+
+Note: When updating you might get an error about safe updates. Use command on next line:
+SQL_SAFE_UPDATES = 0;     //0 = off, 1 = on.
+
+
+
+//Renaming schema with RENAME
+
+
+RENAME TABLE movies TO movie_table;
+RENAME TABLE actors TO actor_table;
+
+Note: multiple items can be acted upon like below:
+RENAME TABLE movies TO movie_table, actors TO actor_table;
+
+
+
+//Deleting tables with DROP and disabling a table with TRUNCATE
+
+
+DROP TABLE reviews IF EXISTS;
+TRUNCATE TABLE movie_table;
+Note: with TRUNCATE, TABLE is optional. ex. TRUNCATE movie_table; would work too.
+
+
+
+//Updating number of columns with ALTER and renaming columns with CHANGE
+
+
+ALTER TABLE movie_table ADD COLUMN genre VARCHAR(100);
+ALTER TABLE actor_table ADD (pob VARCHAR(100), dob DATE);
+Note: when altering COLUMN is optional. Also: pob-place of birth, dob-date of birth.
+
+
+ALTER TABLE actor_table CHANGE COLUMN pob place_of_birth VARCHAR(100
+ALTER TABLE actor_table CHANGE dob date_of_birth DATE;
+Note: Multiple columns cannot be altered, each must start a new command.
+
+ALTER TABLE actor_table CHANGE year year_released YEAR;
+Note: In this example in one step we are renaming the column year to year_released and changing its data type to YEAR(previously INTEGER).
+
+ALTER TABLE actor_table DROP date_of_birth;
+This deletes a column.
+
+
+
+//Renaming a Database and Deleting a Database with DROP
+
+
+Renaming a DB is deemed not safe and commands for it are not live but the work around is to copy the data into a new DB and delete the old one.
+
+DROP DATABASE IF EXISTS movies_db_3 ;
+Note: always use IF EXISTS keywords when creating or dropping DBs to avoid errors.
+
+//Normalization in Databases
+Normalizations in regards to DBs is using another table to extend data so that tables do not become unmanageable. For example you can use keys to specify a genre of movie in a table instead of writing out the full genre and they relaying/defining the keys in another table.
+
+Keys:
+Primary Keys(id)
+  - ex. movie title in table: can't be null, can't be duplicated
+
+Unique Keys(email_address, social security number)
+  - similar to primary key: can't be duplicated but can null unless specified.
+
+Foreign Keys(genre_id)
+  - Shows relationships(reference_definition): can be null, can be duplicated
+
+Using Keys can greatly improve organization.
+  Below we are creating a table called genres, the first column is named id and acts as the primary key and with the AUT0_INCREMENT option any added rows to the table will be registered with a numerical key counting up in the id column.
+
+CREATE TABLE genres (id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30) NOT NULL UNIQUE KEY);
+  Here we made a genre id table. Note: typing KEY is optional.
+
+INSERT INTO genres (name) VALUES ("Action");
+INSERT INTO genres (name) VALUES ("Sci Fi");
+ This means that subsequent rows will have an id counting up and no genre added can be the same. Also the NO NULL keyword upon creation makes it so that either of the columns cannot be empty.
+      genre
+id          name
+1          Action
+2          Sci Fi
+
+Now the last step is to add ids to the movies and add the reference to the genre table.
+
+ALTER TABLE movies ADD id INTEGER AUTO_INCREMENT PRIMARY KEY FIRST;
+  Here we added ids to each movie with AUTO_INCREMENT just like the genre_id example
+ALTER TABLE movies ADD genre_id INTEGER NULL, ADD CONSTRAINT FOREIGN KEY (genre_id) REFERENCES genres(id);
+
+Note: On the second line we are adding a new column with the data starting null and constraining the reference to genre ids within that column.
+
+We can now add genres to the movies table using their ids.
+
+UPDATE movies SET genre_id = 1 WHERE id = 8 OR id = 9;
+SELECT * FROM movies JOIN genres ON movies genre_id = genres.id;
