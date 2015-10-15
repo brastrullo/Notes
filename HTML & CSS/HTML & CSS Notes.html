@@ -1,0 +1,224 @@
+<!DOCTYPE html> 
+<html>
+<!--  =============================  -->
+<!-- |Getting Started In HTML & CSS| -->
+<!--  =============================  -->
+<!-- HTML stands for HyperText Markup Language. Hypertext means "text with links in it." A markup language is a programming language used to make text do more than just sit on a page: it can turn text into images, links, tables, lists, and etc.
+CSS: Cascading Style Sheets. Think of it like skin and makeup that covers the bones of HTML.
+
+	a. Always put <!DOCTYPE html> on the first line. This tells the browser what 	language it's reading (in this case, HTML).
+	b. Always put <html> on the next line. This starts the HTML document.
+	c. Always put </html> on the last line. This ends the HTML document. -->
+
+<!-- <> Tags </>
+===============================================================
+Things inside <>s are called tags.
+Tags nearly always come in pairs: an opening tag and a closing tag.
+Opening tag: <html>		Closing tag: </html>-->
+
+<!-- <html>, <head>, <link>, and <body>
+===============================================================
+Everything inside a web page is nested inside the html element. <head> contains info that the web browser needs to display the page. <link> which is used for linking resources like fonts, stylesheets, and other data is found in the <head> section of HTML doc. The body element contains the actual content of the web page, everything nested inside <body> and </body> shows up in the web browser
+Note: <link> tells the browser where to find the CSS file used to style the page
+ 	  [rel] specifies the relationship b/w the current doc and the linked doc
+ 	  [type] specifies type of data in doc
+	  [href] specifies where to find doc -->
+<!DOCTYPE html> 
+<html>
+	<head>
+		<link rel='stylesheet' type='text/css' href='stylesheet.css'/>
+	</head>	<!--[type] is not neccessarily needed but should be included-->
+	</body>
+		<p>We're learning HTML</p>
+	</body>
+</html>
+
+<!--  ===========================  -->
+<!-- |CSS: Cascading Style Sheets| -->
+<!--  ===========================  -->
+<!-- CSS Rules {Selector and Property-value Pairs}
+=============================================================== -->
+<!--1.	A CSS rule starts with a selector. A selector specifies which HTML 
+		elements to style. Here the h1 CSS selector selects all h1 HTML elements 
+		on the page.
+	2.	Inside the braces { }, a property and its value define what aspect of the 
+		html elements to style. Setting the colour property to red changes the colour of the h1 element to red. -->
+
+	|h1 { 			<!--[h1] is the selector-->
+ 	|color: red; 	<!--[color] is the property-->
+	|} 				<!--[red] is the value-->
+
+<!-- color: sets the colour of an HTML element's text
+===============================================================
+There are 140 colour names. The rest can be selected with RGB(red,gren,blue) values or hexadecimal numbers. -->
+rgb(102,153,0) <!--RGB values range from 0-255, with 255 being the brightest.-->
+#9933CC		   <!--Hex numbers vary from 00-ff, with ff being the brightest. -->
+
+<!-- background & borders
+===============================================================
+.......4.margin............... 	1. objects, color, font-family, font-sizes
+:  ____3.border_____________  :	2. padding: background-(image, color)
+: | 1. text  2.^spaceb/w txt| :	3. border(styles), tables
+: |_________________________| : 4. transparent area outside element border
+:.............................: 											-->
+background-color: #cccccc;<!--background-color: [colour name][RGB][hex]-->
+background-image: url('http://goo.gl/04j7Nn');<!--url("http://www.url.com/")-->
+border: 3px solid #cc0000; <!--border: [thickness][style][color]-->
+padding: 20 50 75 100px <!--top: 25px, right: 50px, bottom: 75px, left: 100px-->
+margin-bottom: 1px<!--margin:auto = middle, margin-left:auto = far right-->
+
+<!-- CSS Positioning: Moving boxes
+===============================================================
+Block elements display on a new line. Inline elements display on the same line as their neighboring elements.
++ display: 		-can be block, inline or inline block.
++ position: 	-set to relative opens options with top, left, bottom and right
++ float: 	 	-moves an element to the far left or far right of the page and 
+		  	 	the surrounding text wraps around it.
++ clear: both	-The clear property turns off the float, so the section returns 
+				 to its normal flow on the page. -->
+
+<!-- FONTS in CSS
+=============================================================== -->
+font-style: italic; <!--italic(calligraphic)/oblique(slanted)-->
+font-weight: bold;<!--bolder/lighter/100-900(step:100)/normal(400)/bold(700)-->
+
+<!-- + font-family: common font styles -->
+		font-family: Arial, Helvetica, sans-serif;
+		font-family: "Times New Roman", Times, serif;
+		font-family: "Courier New", Courier, monospace;
+
+<!-- + font-size: sets size of HTML element's text
+Text size can be measured in [px: pixels] = font-size: 48px;
+Relative font-sizes with [ems] or [rems] -->
+1 em = 14 pixels: <!-- [em] begins with a parent font size (14px in this case)-->
+.5 em = 7 pixels  <!-- With [rem] there is no defined parent font size; -->
+1.5 em = 21 pixels<!-- font size will always be relative to the root html size-->
+
+<!--  =============  -->
+<!-- |/*Bootstrap*/| -->
+<!--  =============  -->
+<!-- Bootstrap is a collection of prewritten CSS rules used to build web pages faster. Bootstrap provides styles out of the box for several common components on a web page, such as grid layouts, navigation, showcases, and much more.-->
+<!-- Linking to Bootstrap(The second link) -->
+<link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet"> <!-- <<="Shift" font -->
+<link rel="stylesheet" href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css"> <!-- <<=bootstrap-->
+<link rel="stylesheet" href="main.css"> <!-- <<= our css file-->
+<!--The order of the CSS files tell the browser that your styles in main.css are more important than the styles in bootstrap.css, so the final page that loads is the customized web page.-->
+
+<!-- The grid
+===============================================================
+Rather than create layouts from scratch, HTML elements can be aligned to a grid in different ways to create custom layouts.
+
+Bootstrap comes with a grid that is made up of 12 equal-sized columns. HTML elements are arranged to span different numbers of columns in order to create custom page layouts.-->
+
+<div class="row"> <!-- .row class is used  to create a horizontal group-->
+  <div class="col-md-6"> <!-- with class ".col-md-6" content spans 6 columns -->
+    <h4>Content 1</h4>
+  </div>
+  <div class="col-md-6">
+    <h4>Content 2</h4>
+  </div>
+</div>
+
+<!-- Tabs
+===============================================================
+Tabs are a common navigation technique that give links to different parts of a site. Tabs are seen in sites like Gmail and Codecademy.
+Bootstrap makes it easy to create tabbed navigation. Let's see how to do this.-->
+<ul class="nan nav-tabs"> <!-- class "nav nav-tabs" activates tabs -->
+	<li><a href="#">Primary</a></li>
+	<li class="active"><a href="#">Social</a></li>
+</ul><!-- class"active" sets active tab -->
+
+<!-- Pills
+===============================================================
+Pills are a set of buttons that give links to different parts of a site. Pills are seen in sites like Google's search results page. -->
+<ul class="nav nav-pills"> <!-- class "nav nav-pills" activates pills -->
+	<li><a href="#">Primary</a></li>
+	<li class="active"><a href="#">Social</a></li>
+</ul> <!--class"active" sets active tab -->
+
+<!-- Jumbotron
+===============================================================
+Many sites have a large showcase area featuring important content. Showcases are seen on sites like Google Mobile and Apple. Bootstap calls this Jumbotron. -->
+<div class="jumbotron"> <!--class "jumbotron" activates jumbotron-->
+	<h1>Find a place to stay.</h1>
+	<p>Rent from people in over 34,000 cities and 192 countries.</p>
+</div>
+
+<!-- pull-left and pull-right
+=============================================================== -->
+<ul class="pull-right">  <!-- right-aligns element, there's also "pull-left"-->
+	<li><a href="#">Sign Up</a></li>
+	<li><a href="#">Log In</a></li>
+</ul>
+
+<!-- + Creating Thumbnails +
+=============================================================== -->
+<div class="thumbnail"> <!-- displays thumbnails of images -->
+  <img src="..." >
+</div>
+
+<!--  ====================================  -->
+<!-- |/*HTML: Hyper-Text Markup Language*/| -->
+<!--  ====================================  -->
+<!-- Heading Elements 
+===============================================================
+Headings are described by heading elements. There are six levels of heading elements: h1 to h6. The h1 element is used to describe the main heading of the page. -->
+<h1> Biggest </h1>
+<h6> Smallest </h6>
+
+<!-- <p> Paragraph Elements </p>
+===============================================================
+Similar to a news article or a word document, headings in a web page are usually followed by paragraphs. In HTML, paragraphs are described by paragraph elements, or p elements.
+<p>This is an example of /*<p>*/ where the body of article goes. body of article goes. body of article goes. body of article goes. body of article goes. body of article goes. body of article goes. body of article goes.</p> -->
+
+<!-- <a> Linking Elements </a>
+===============================================================
+The defining feature of the Web is the presence of links. Clicking on links leads to other web pages. The a element is used to create links.
+The a element is similar to the h1 or p elements, but it has two key differences:
+	1. 	First, it has an [href] attribute which equals 1a. the website you want 	to link to.
+	2. 	Second, you get to choose the link text that users see on the page. -->
+<!-- 1.                 1a.                3.    -->
+<a |href| = |"https://www.google.com/"|>|Search|</a>
+
+<!-- <img> Image Elements </img>
+===============================================================
+In addition to headings and paragraphs, a web page can have images. The img element is used to add images to a page.
+The img element has an attribute inside the opening <img> tag named [src]. The src attribute has the address of the image. -->
+<img src = "logo.png"> /* or */ <img src="http://goo.gl/mbnqBl">
+
+<!-- <ul> Unordered List Elements </ul>
+===============================================================
+In addition to paragraphs and images, content can be presented as lists.
+In HTML, a bulleted list is described using a ul element. Each item in the list is placed inside an li element. -->
+<ul>
+	<li>Home</li>	<!-- Unordered List Elements appear as -->
+	<li>About</li>	<!-- bullet points before adding CSS -->
+</ul>
+
+<!-- <div> Unordered List Elements </div>
+===============================================================
+A div element groups other elements together into sections of the web page, such as a navigation bar, the main body, and the footer. -->
+<div class="nav">
+	<ul>
+	    <li>Brad</li>
+	</ul>
+</div>
+
+<!-- Class Attribute
+===============================================================
+HTML elements can be CSS selectors, but they're not the only selectors available. Another available selector is the class selector -->
+<!-- The class can be targeted from  --> |.header {
+<!-- CSS by using a dot (.),as seen  --> |	color: blue;
+<!-- in the CSS to the right.		 --> |}
+<!-- The .header selector applies a blue text colour only to the elements nested inside <div class="header">..</div>. -->
+.header p { 	<!-- This CSS selector selects any p element -->
+  color: blue;	<!-- nested inside an HTML element with the -->
+}   			<!-- class named header, and colours it blue. -->
+<!-- In this way, a CSS rule targets specific HTML elements on the page and applies a style to them. -->
+
+<!--  ID Selector
+=============================================================== -->
+<div id="green"></div> 	<!-- in HTML classifies div as ID green -->
+#green { }				<!-- in CSS calls ID green -->
+
+</html>

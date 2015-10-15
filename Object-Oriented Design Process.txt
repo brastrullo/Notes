@@ -1,0 +1,83 @@
+The Object-Oriented Design Process
+
+1. Gather Requirements(Requirements Analysis)
+=====================================================
+What MUST the app do not COULD do?
+
+Functional Requirements
+Features/Capabilities: What does the app neep to be able to do to solve the problem?
+
+Non-Functional Requirements
+Help: What documentation needs to be provided?
+Legal: Are there legal requirements?
+Performance: System requirements, response time etc.
+Support: How will you provide support to customers? (i.e. 2am sunday morning - what needs to happen)
+Security(can be functional depending on the app): Is it safe for our users?
+
+Use the FURPS/FURPS+ checklist:
+This is an agile approach and need not be perfect the first time around.
+
+F unctional requirements
+U sability requirements
+R eliability requirements
+P erformance requirements
+S upportability requirements
+
++ Design requirements, Implementation requirements, Interface requirements, Physical requirements
+
+Note: see Unified Modeling Language(UML - a way of structuring)
+
+2. Describe the app
+=====================================================
+Give use cases, how people use the app. Broadest sense of using the app.
+Use Cases Ex.
+Title: Purchase Items
+Actor: Customer  (Who will be using the app i.e. Admin, HR, Employee etc. or Requestor/Approver)
+Scenario(This describes uses in the perspective of the user, defines goal of user): 
+1. Customer reviews items in shopping cart. 
+2. Customer provides payment and shipping info. 
+3. System validates payment info and responds with confirmation of order and provides order number that Customer can use to check on order status. 
+4. System will send Customer a confirmation of order details and tracking number in an email.
+
+User Story Ex.
+As a        "Reader"
+I want      "to change the font and color scheme"
+so that     "I can read in different lighting"
+
+As a        "User"
+I want      "to be prompted to save work"
+so that     "I don't lose any work"
+
+May include IU of app.
+This part is agile and can be revisited.
+
+3. Identify the main objects
+===================================================
+Take a look at your use cases and write out all nouns that you used.
+Cross out possible duplicates.
+
+
+4. Describe the Interactions
+Abilities and responsibilities of different objects.
+
+Check use cases for verbs or action items and write them out.
+
+Alternatively you can use CRC cards.
+On an index card write on the name of the class and two lists:
+____________________________________
+|              Class               |
+|                    |             |
+|Requirements        |Collaborators|
+|__________________________________|
+Requirements list will take up 2/3
+Collaborators list will use the last 1/3
+ex.
+            Payment
+Store payment details   | Order
+Validate Payment        | 
+
+After creating a few CRC cards you can physically group the index cards into relationships that affect each other.
+
+Sequence Diagram - order of actions upon interaction.
+
+5. Create a UML Class Diagram

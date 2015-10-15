@@ -1,0 +1,190 @@
+$(document).ready(function(){
+// =========================
+//|Getting Started In jQuery|
+// =========================
+/* To get the most out of jQuery, we should review how an HTML page is put together.
+
+An HTML document is structured according to the Document Object Model, or DOM. It's by interacting with the DOM that jQuery is able to access and modify HTML.
+
+The DOM consists of every element on the page, laid out in a hierarchical way that reflects the way the HTML document is ordered. Remember how we could think of the HTML document as a tree? You can think of the DOM the same way. Just as with an HTML document, elements in the DOM can have parents, children, and siblings.
+
+//+ What is jQuery? +
+jQuery is a library, or set of helpful add-ons, to the JavaScript programming language. jQuery provides a simple interface for the underlying JavaScript.
+jQuery is much better at giving you immediate, visual results than regular JavaScript.*/
+
+//+ Linking Your HTML and JavaScript Files +
+//===============================================================
+//Like a <link> tag for HTML and CSS, we need a <script> tag to connect our HTML and jQuery. The tag looks like this:
+<script type="text/javascript" src="script.js"></script>
+//Note: </script>, therefore it is not self-closing.
+
+//+ Getting Started: Specifying a jQuery Document +
+//===============================================================
+$(document).ready(function(){
+//Basically says do function() to $(document) when ready()
+});	// }); ends .ready() 
+//$(document) is a jQuery object. The $() is actually a function in disguise; it 	turns the document into a jQuery object.
+//.ready(); is a type of function; you can think of it as sort of a helper that 		runs the code inside its parentheses as soon as the HTML document is ready
+//function(){ } is the action that .ready() will perform as soon as the HTML 		document is loaded.
+
+//+ Functions +
+/* A function is made up of three parts: the [function] keyword, any inputs that function takes (they go between the ()s and are separated by commas if there are more than one), and whatever actions the function should perform (these go between the {}s).
+
+//+ jQuery Syntax +
+//===============================================================
+/* Just like the CSS div refers to the HTML element <div>, the jQuery 'div' refers to the same HTML element <div>. You can think of the element name passed to jQuery as identical to the CSS element, only wrapped in quotes. So, for instance, you could target anything of class button with: */
+//+ Basic Syntax structure +
+$(document).ready(function() {
+    $('thingToTouch').event(function() {
+        $('thingToAffect').effect();
+    });
+});
+$('.button').someAction //$(" ") can be any CSS selector(IDs, classes, etc.)
+var $target = $('.target'); //Variables are set like JavaScript
+
+//+ Calling CSS selectors in jQuery +
+//===============================================================
+/*Begins every jQuery doc*/			$(document) //note: no quotations needed
+/*Object nested in action*/			$(this) //calls selector its nested in
+<div>jQuery</div> 					$('div')
+<li class='target'>jQuery</li> 		$('.target')
+<li id='target'>jQuery</li>			$('#target')
+/*Last child in ordered list*/		$('ol li:last-child')
+/*4th child list*/					$('li:nth-child(4)')
+/*Paragraphs and lists*/			$('p, li') //called a compound selector
+/*Gets next sibling of element*/	$(this).next();
+/*Gets previous sibling of element*/$(this).prev();
+/*Get child of selector*/			$(this).children();
+/*Returns 1st of selected elements*/$('ol').first();
+/*Return last of selected elements*/$('ol').last();
+
+//+ Creating new elements in jQuery with +
+//===============================================================
+/*Ex.*/ $('<li>').text('New item').appendTo('.items');
+$('<li>') //Ex.  creates a new list element
+.text('New item') //sets text 'New item' to list element
+.appendTo('.items') //adds new list element to be first in <class='items'>
+
+//+ Event Handlers +
+//===============================================================
+$('p').html("jQuery :)"); //changes content of FIRST element (ex. 'p') it finds
+$("div").css('color','red');//changes css ('elements','value') in ex.<div>
+$("div").height("100px"); //resizes height
+$("div").width("50px"); //resizes width
+$('div').fadeTo('fast', 0.5);//fades to fast and to 50% opacity
+$('div').fadeOut(1000); //fades out with arguement in milliseconds
+$('div').slideDown('slow'); //slides element down
+$('.panel').slideToggle('slow'); //slide toggle
+$('div').hide(); //hides element
+$('div').show('slow'); //shows element
+$('div').toggle(); //alternates hiding and showing an element
+
+
+//+ Moving/Adding/Deleting Elements +
+//===============================================================
+$(".info").append("<p>..fun!</p>"); //inserts element as LAST child of target
+$('<p>..fun!</p>').appendTo('.info'); //alt. notation: works same as above 
+$(".info").prepend("<p>FUN!..</p>");//inserts element as FIRST child of target
+$('<p>FUN!..</p>').prependTo('.info'); //alt. notation: works same as above
+$('ol').empty(); //deletes content including descendants(ex. all <li> & <p>)
+$('div').remove(); //deletes content AND element itself(the <div> element itself)
+$('.posts').val('<p>String</p>') //changes value of element of class to input
+
+//+ Adding/Removing Classes +
+//===============================================================
+$('selector').addClass('className'); //'selector' is the HTML element you want
+$('selector').removeClass('className');//# or . is not needed before className
+//Note:(className)!===$('#selector') it is an arguement like 10 in .fadeOut(10);
+$(this).toggleClass('highlighted'); //alternates adding/removing class from element
+
+//+ <form>/<input>: Form Input in HTML +
+//===============================================================
+<form name="checkListForm">
+	<input type="text" name="checkListItem"/>
+</form>
+var input = $('input[name=formInput]').val();//creates variable of user input
+$('input:checkbox:checked').val();//returns form value of FIRST ex.checked box it finds
+//+ .focus() +
+/*The .focus() event handler only works on elements that can receive focus—the list of these is a bit vague, but HTML elements like <textarea> and <input> are most common.
+An element has focus when we click on it or tab over to it. (ex. textbox lights up)*/
+  $('input').focus(function(){
+    $(this).css('outline-color','#FF0000');
+  });
+
+//+ .on(): The General Event Handler +
+//===============================================================
+//Without the .on() event, to remove items from an input list, one might try:
+$('.item').click(function() { //This WON'T work. jQuery looks for all the .items when
+   	$(this).remove();		  //the DOM is loaded, so by the time your document is 
+}); 						  //ready, it's already decided there are no .items to
+							  //.remove(), and your code won't work.
+
+//The way to do this will be the .on() event handler
+$(document).on('click', '.item', function() { //2 arguements: event and selector
+    $(this).remove();//action
+}); //Says remove every .item on the page that is clicked
+
+//+ Mouse Events +
+//===============================================================
+$('div').click(function() { }); //sets an action to element when clicked
+$('div').dblclick(function(){ }); //sets an action to element when double-clicked
+$('div').mouseenter(function() { }); //sets an action when mouse enters element
+$('div').mouseleave(function() { }); //sets an action when mouse leaves element
+$('div').hover( //takes two arguements, works like mouse-enter/leave respectively
+    function(){
+      $(this).addClass('highlight');
+   },	//the comma is very important
+   function(){
+      $(this).removeClass('highlight');
+   }
+);
+/*The .focus() event handler only works on elements that can receive focus—the list of these elements is a bit vague, but HTML elements like <textarea>s and <input>s are the usual suspects.*/
+$('input').focus(function(){
+    $(this).css('outline-color','#FF0000');
+  });
+
+//+ .animate() +
+//===============================================================
+$('div').animate({left:'+=10px'},500); 
+//Takes 2 inputs: the animation to perform, and the time(ms) in which to perform it.
+
+//+ Keyboard Events +
+//===============================================================
+$(document).keydown(function(){ });
+/*The .keydown() event is triggered whenever a key on the keyboard is pressed. It only works on whatever page element has focus, so an event must be nested*/
+$('.status-box').keyup(function(){ }); //like keydown() but triggered when key released
+
+
+
+//+ Intro to jQuery UI +
+//===============================================================
+$('#menu').accordion(); //built-in menu style
+$('ol').sortable(); //allows to switch elements position
+$('ol').selectable(); //highlights div
+$('div').resizable(); 
+$('#car').draggable(); //no input makes object draggable
+$('.slide').fadeIn(600) //fades in effect to element in 600ms
+$('.slide').slideDown(600)//slides down in 600ms
+$(this).effect('explode');
+$(this).effect('slide'); 
+$(this).effect('bounce', {times:2}, 200); //2 extra inputs, # of bounces, time(ms)
+
+//+ Cycle Through Siblings +
+//===============================================================
+//(Ex. With Carousel)
+$('.arrow-next').click(function(){
+var currentSlide = $('.active-slide')
+var nextSlide = currentSlide.next();
+if (nextSlide.length == 0) {
+	nextSlide = $('.slide').first();
+}
+currentSlide.fadeOut(600).removeClass('active-slide');
+nextSlide.fadeIn(600).addClass('active-slide');
+}); //When element .arrow-next is clicked, it cycles next slides
+
+//+ Resources +
+//===============================================================
+//Term: Document Object Model(DOM)
+
+});//ends doc
+
